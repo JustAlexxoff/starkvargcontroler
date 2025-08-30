@@ -417,3 +417,97 @@ body.light-mode .theme-toggle-button img {
     /* These styles should retain their original colors regardless of light-mode */
     /* No changes needed here, as their strokes are explicit colors or gradients */
 }
+
+/* --- Responsive Adjustments for Mobile Landscape (e.g., iPhone 14 Pro) --- */
+@media (max-width: 900px) {
+    body {
+        padding: 10px; /* Reduce global padding */
+    }
+
+    #main-screen {
+        padding: 10px 0; /* Reduce main screen padding */
+    }
+
+    .header-info {
+        flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+        justify-content: center; /* Center header items if they wrap */
+        margin-bottom: 20px; /* Reduce margin */
+        position: static; /* Reset to static positioning for header items */
+        padding: 0 5px;
+    }
+
+    .header-info .power-mode,
+    .header-info .battery-display {
+        min-width: 100px; /* Smaller min-width */
+        padding: 5px 15px;
+        margin: 5px; /* Add some margin between wrapped items */
+    }
+
+    .theme-toggle-button {
+        position: static; /* Make button static in flow */
+        transform: none; /* Remove transform */
+        margin-left: 10px; /* Add margin if next to another item */
+        width: 40px;
+        height: 40px;
+        border-width: 1px;
+    }
+
+    .header-info .mileage-display {
+        min-width: unset; /* Remove min-width override */
+        margin-top: 20px; /* Adjust mileage display position */
+    }
+
+    /* Hide the extra battery and engine icons for now, we can re-add them if space permits */
+    .baterry-icon-container,
+    .engine-icon-container {
+        display: none; 
+    }
+
+    .power-mode .label,
+    .mileage-display .label,
+    .battery-display .label {
+        font-size: 0.7em; /* Smaller label font size */
+    }
+
+    .power-mode .value-wrapper {
+        font-size: 1.5em; /* Smaller power mode value */
+    }
+
+    .mileage-display #mileage-value-header {
+        font-size: 5em; /* Smaller mileage value */
+    }
+
+    .mileage-display .unit {
+        font-size: 0.8em; /* Smaller unit font size */
+        margin-top: -10px; /* Adjust margin for compactness */
+    }
+
+    .battery-icon {
+        font-size: 1.5em; /* Smaller battery icon */
+    }
+
+    .battery-display #battery-percentage-header {
+        font-size: 1.5em; /* Smaller battery percentage */
+    }
+
+    /* Move mileage display up slightly within the header to make space */
+    .header-info .mileage-display {
+        margin-top: 10px; /* Adjust as needed */
+    }
+
+    .speed-arc-container {
+        width: 400px; /* Significantly reduced width */
+        height: 200px; /* Significantly reduced height */
+        margin-top: -150px; /* Adjust to move it higher, relative to new size */
+        margin-bottom: 0; /* No bottom margin needed */
+    }
+
+    .riding-time-bottom {
+        font-size: 1.5em; /* Smaller font size */
+        margin-top: -80px; /* Move further up */
+    }
+
+    #riding-time-value-bottom {
+        font-size: 0.9em; /* Smaller font size */
+    }
+}
