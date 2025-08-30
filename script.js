@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSpeedKmH = parseInt(localStorage.getItem('currentSpeedKmH')) || 0;
     const MAX_DISTANCE_FOR_100_PERCENT = 35; // km
     const MAX_SPEED_FOR_ARC = 55; // km/h
-    const SPEED_ARC_CIRCUMFERENCE = 1822.12; // Circumference for an oval arc (approx. pi * (rx + ry) * 2)
+    const SPEED_ARC_CIRCUMFERENCE = 3675.8; // Circumference for an oval arc (approx. pi * (rx + ry) * 2)
 
     const themeToggleButton = document.getElementById('theme-toggle'); // New: Theme toggle button
 
