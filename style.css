@@ -1,0 +1,419 @@
+body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    background-color: black;
+    color: #00ff00; /* Primary digital green */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 30px; 
+    box-sizing: border-box;
+}
+
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 1s ease-in-out;
+}
+
+#splash-screen img {
+    max-width: 40%; /* Reduced size for splash screen logo */
+    max-height: 40%; /* Reduced size for splash screen logo */
+    animation: glowFlash 2s infinite alternate; /* Apply glowing animation */
+}
+
+#main-screen {
+    opacity: 0;
+    transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space between header-info and footer/mileage-info */
+    padding: 20px 0;
+    box-sizing: border-box;
+    visibility: hidden;
+}
+
+#main-screen.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px; /* Space before content below header */
+    padding: 0 10px;
+    width: 100%;
+    position: relative; /* Added for absolute positioning of child elements */
+}
+
+.header-info .power-mode,
+.header-info .mileage-display,
+.header-info .battery-display {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    border-radius: 50px;
+    padding: 10px 25px;
+    min-width: 120px;
+    border: 1px solid #555; /* Default border for all, will be overridden */
+}
+
+/* Override default border for mileage and battery */
+.header-info .mileage-display { /* This is now Kilometraj */
+    border: none; /* No border for Kilometraj */
+    background-color: transparent; /* Remove background */
+    min-width: 180px; /* Adjust width */
+    margin-top: 100px; /* Push mileage display down */
+}
+
+.header-info .battery-display { /* This is now Battery */
+    border: none; /* No border for Battery */
+    flex-direction: row; /* Arrange icon and text horizontally */
+    justify-content: flex-start; /* Push content to the left */
+    align-items: center;
+    padding-left: 15px; /* Adjust padding to move text left */
+    padding-right: 0; /* Remove right padding */
+    min-width: 150px;
+    background-color: #333; /* Default background */
+}
+
+.power-mode .label,
+.mileage-display .label,
+.battery-display .label,
+.riding-time-bottom .label { /* Removed .riding-time-bottom .label from here */
+    font-size: 0.8em;
+    color: #888;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.power-mode .value-wrapper {
+    display: flex;
+    align-items: center;
+    font-size: 2em;
+    color: white;
+    font-weight: bold;
+}
+
+.power-mode .icon {
+    margin-right: 5px;
+    font-size: 1.2em;
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+/* Styling for Kilometraj (now using .mileage-display class) */
+.header-info .mileage-display #mileage-value-header {
+    font-size: 8em; /* Increased font size significantly */
+    font-weight: bold;
+    color: white;
+}
+
+.header-info .mileage-display .unit {
+    font-size: 1.5em; /* Increased font size */
+    color: #888;
+    margin-top: -15px; /* Adjust margin to bring unit closer to value */
+}
+
+/* Styling for Battery Display (now using .battery-display class) */
+.header-info .battery-display #battery-percentage-header {
+    font-size: 2em; /* Adjusted font size for percentage */
+    color: white;
+    font-weight: bold;
+    margin-left: 10px; /* Space between icon and percentage */
+}
+
+.battery-icon {
+    font-size: 1.8em; /* Size of battery icon */
+    color: white;
+}
+
+/* Battery color states */
+.battery-display.level-green {
+    background-color: #28a745; /* Green */
+}
+
+.battery-display.level-orange {
+    background-color: #ffc107; /* Orange */
+}
+
+.battery-display.level-red {
+    background-color: #dc3545; /* Red */
+}
+
+.battery-indicator-container {
+    width: 100%;
+    height: 100px; /* Reduced height as main battery indicator is gone */
+    margin: 0;
+    background-color: transparent;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styling for new bottom section */
+.bottom-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: auto; /* Push to bottom */
+    padding-bottom: 20px;
+}
+
+.speed-arc-container {
+    width: 750px; /* Slightly wider */
+    height: 450px; /* Taller */
+    margin-bottom: 10px;
+    margin-top: -400px; /* Moved higher */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ensure arc doesn't overflow */
+}
+
+.speed-arc {
+    width: 100%;
+    height: 100%;
+}
+
+.speed-arc-background {
+    stroke-linecap: round;
+}
+
+.speed-arc-fill {
+    stroke-linecap: butt; /* Changed from round to butt for better dot visibility */
+    transition: stroke-dasharray 0.5s ease-out;
+}
+
+.riding-time-bottom {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px 25px;
+    border-radius: 50px;
+    background-color: transparent; /* Removed background */
+    border: none; /* Removed border */
+    min-width: 120px;
+    color: white;
+    font-size: 2em;
+    margin-top: -50px; /* Move riding time up */
+}
+
+#riding-time-value-bottom {
+    font-size: 1em;
+}
+
+.footer {
+    text-align: center;
+    width: 100%;
+    font-size: 1.2em;
+    color: #555;
+    padding-top: 15px;
+    border-top: 1px solid #222;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.power-mode.active-flash {
+    animation: flashBlue 1s ease-out forwards;
+}
+
+@keyframes flashBlue {
+    0% { background-color: #333; border-color: #555; }
+    50% { background-color: #04d9ff; border-color: #04d9ff; box-shadow: 0 0 15px #04d9ff; } /* Changed to neon blue */
+    100% { background-color: #333; border-color: #555; }
+}
+
+#flashing-blue-image {
+    width: 50px; /* Adjust size as needed */
+    height: auto;
+    margin-top: 10px; /* Space from km/h unit */
+}
+
+.flashing {
+    animation: flashOpacity 0.5s infinite alternate;
+}
+
+@keyframes flashOpacity {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes moveLeftFadeOut {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-200px); /* Adjust distance as needed */
+        opacity: 0;
+    }
+}
+
+.move-left-fade-out {
+    animation: moveLeftFadeOut 1s ease-out forwards;
+}
+
+.header-info {
+    position: relative; /* To position absolute children */
+}
+
+.baterry-icon-container,
+.engine-icon-container {
+    position: absolute;
+    width: 60px; /* Adjust size as needed */
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.baterry-icon-container img,
+.engine-icon-container img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* Position for Battery icon - left of center (near power mode) */
+#baterry-icon-container {
+    top: 50%;
+    left: 20%; /* Adjust as needed */
+    transform: translateY(-50%);
+}
+
+/* Position for Engine icon - right of center (near battery display) */
+#engine-icon-container {
+    top: 50%;
+    right: 20%; /* Adjust as needed */
+    transform: translateY(-50%);
+}
+
+@keyframes glowFlash {
+    0% {
+        box-shadow: 0 0 5px rgba(4, 217, 255, 0.5); /* Subtle glow */
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(4, 217, 255, 1); /* Brighter glow */
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(4, 217, 255, 0.5); /* Subtle glow */
+    }
+}
+
+@keyframes flashRedWhite {
+    0% { color: red; }
+    50% { color: white; }
+    100% { color: red; }
+}
+
+.flash-red-white {
+    animation: flashRedWhite 0.8s infinite alternate;
+}
+
+/* --- Theme Toggle Button Styling --- */
+.theme-toggle-button {
+    position: absolute;
+    top: 50%;
+    right: 5%; /* Adjust as needed, positioned to the right */
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white; /* Initial state: white background */
+    border: 2px solid #555;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    transition: background-color 0.3s ease;
+}
+
+.theme-toggle-button img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+}
+
+/* --- Light Mode Styles --- */
+body.light-mode {
+    background-color: white;
+    color: black; /* Default text color for light mode */
+}
+
+/* Adjust header info elements for light mode */
+body.light-mode .header-info .power-mode {
+    background-color: white; /* White background for power mode in light mode */
+    border-color: #bbb;
+}
+
+body.light-mode .header-info .battery-display {
+    background-color: #eee; /* Lighter background for battery display in light mode */
+    border-color: #bbb;
+}
+
+body.light-mode .header-info .power-mode .value-wrapper span, /* power mode value */
+body.light-mode .mileage-display #mileage-value-header, /* mileage value */
+body.light-mode .riding-time-bottom #riding-time-value-bottom {
+    color: black; /* Black text for values */
+}
+
+body.light-mode .power-mode .label,
+body.light-mode .mileage-display .label,
+body.light-mode .riding-time-bottom .label {
+    color: #666; /* Darker grey for labels (except battery) */
+}
+
+body.light-mode .battery-display .label { /* Override for battery label to keep it white */
+    color: white;
+}
+
+body.light-mode .battery-icon { /* Explicitly keep battery icon white */
+    color: white;
+}
+
+/* Specific button style in light mode */
+body.light-mode .theme-toggle-button {
+    background-color: black; /* Button background becomes black in light mode */
+    border-color: #333;
+}
+
+body.light-mode .theme-toggle-button img {
+    filter: invert(1); /* Invert image colors in light mode if needed */
+}
+
+/* Ensure battery color indicators are unaffected */
+.battery-display.level-green,
+.battery-display.level-orange,
+.battery-display.level-red {
+    /* These styles should retain their original colors regardless of light-mode */
+    /* No changes needed here, as they are specific class names */
+}
+
+/* Ensure arc styles are unaffected */
+.speed-arc-background,
+.speed-arc-fill {
+    /* These styles should retain their original colors regardless of light-mode */
+    /* No changes needed here, as their strokes are explicit colors or gradients */
+}

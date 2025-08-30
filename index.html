@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stakvarg E-Bike Headunit</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div id="splash-screen">
+        <img src="assets/logo.png" alt="Stakvarg Logo">
+    </div>
+
+    <div id="main-screen">
+        <div class="header-info">
+            <!-- Power Mode in top left -->
+            <div class="power-mode">
+                <span class="label">POWER MODE</span>
+                <div class="value-wrapper">
+                    <img src="assets/fulger.png" alt="Power Icon" class="icon">
+                    <span id="power-mode-value">4</span>
+                </div>
+            </div>
+
+            <!-- Mileage in top center -->
+            <div class="mileage-display"> <!-- Changed class to mileage-display -->
+                <span id="mileage-value-header">47</span>
+                <div class="unit">km/h</div>
+                <img id="flashing-blue-image" src="assets/blue.png" alt="Blue Indicator" class="hidden"> <!-- Added image -->
+            </div>
+
+            <!-- Battery in top right -->
+            <div class="battery-display"> <!-- Changed class to battery-display -->
+                <i class="fas fa-battery-half battery-icon"></i> <!-- Battery icon placeholder -->
+                <span id="battery-percentage-header">47%</span>
+            </div>
+
+            <!-- New: Battery icon -->
+            <div class="baterry-icon-container hidden" id="baterry-icon-container">
+                <img src="assets/baterry.png" alt="Battery Icon">
+            </div>
+
+            <!-- New: Engine icon -->
+            <div class="engine-icon-container hidden" id="engine-icon-container">
+                <img src="assets/engine.png" alt="Engine Icon">
+            </div>
+
+            <!-- New: Light/Dark Mode Toggle Button -->
+            <button id="theme-toggle" class="theme-toggle-button">
+                <img src="assets/modechange.webp" alt="Toggle Theme">
+            </button>
+        </div>
+
+        <div class="battery-indicator-container">
+            <!-- This container is empty for main battery arc as per previous request -->
+        </div>
+
+        <!-- New section for Speed Arc and Riding Time -->
+        <div class="bottom-info">
+            <div class="speed-arc-container">
+                <svg class="speed-arc" width="750" height="450">
+                    <defs>
+                        <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="black" stop-opacity="1"/>
+                            <stop offset="10%" stop-color="#04d9ff" stop-opacity="1"/>
+                            <stop offset="90%" stop-color="#04d9ff" stop-opacity="1"/>
+                            <stop offset="100%" stop-color="black" stop-opacity="1"/>
+                        </linearGradient>
+                    </defs>
+                    <path class="speed-arc-background" d="M 10 450 A 365 220 0 0 1 740 450" fill="none" stroke="#555" stroke-width="10"/>
+                    <path class="speed-arc-fill" d="M 10 450 A 365 220 0 0 1 740 450" fill="none" stroke="url(#arcGradient)" stroke-width="10" stroke-dasharray="0 3675.8"/>
+                </svg>
+            </div>
+            <div class="riding-time-bottom">
+                <span id="riding-time-value-bottom">0h 00m</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            STARK FUTURE
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
