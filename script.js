@@ -26,6 +26,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggleButton = document.getElementById('theme-toggle'); // New: Theme toggle button
 
     // --- Splash Screen Logic ---
+    const debugInfoElement = document.getElementById('debug-info'); // New: For debugging output
+
+    function updateDebugInfo(message) {
+        if (debugInfoElement) {
+            debugInfoElement.textContent = message;
+        }
+    }
+
     setTimeout(() => {
         splashScreen.style.opacity = '0';
         splashScreen.addEventListener('transitionend', () => {
@@ -235,6 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- GPS Access --- (Simplified)
     if (navigator.geolocation) {
+        updateDebugInfo('GPS: Trying to get position...');
         navigator.geolocation.watchPosition(
             (position) => {
                 const speed = position.coords.speed; // Speed in meters per second
@@ -242,10 +251,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentSpeedKmH = speed * 3.6; // Convert m/s to km/h
                     localStorage.setItem('currentSpeedKmH', currentSpeedKmH);
                     updateMileageDisplay(); // Update mileage display from GPS
+                    updateDebugInfo(`GPS: Speed ${currentSpeedKmH.toFixed(2)} km/h`);
                 } else {
                     currentSpeedKmH = 0; // If speed is null or negative, assume 0
                     localStorage.setItem('currentSpeedKmH', currentSpeedKmH);
                     updateMileageDisplay();
+                    updateDebugInfo('GPS: No speed detected (stationary or invalid data)');
                 }
             },
             (error) => {
@@ -253,16 +264,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentSpeedKmH = 0; // Reset speed on error
                 localStorage.setItem('currentSpeedKmH', currentSpeedKmH);
                 updateMileageDisplay();
+                let errorMessage;
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        errorMessage = "GPS Error: Permission Denied. Please enable location services.";
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        errorMessage = "GPS Error: Position Unavailable. Try again later.";
+                        break;
+                    case error.TIMEOUT:
+                        errorMessage = "GPS Error: Request timed out. Check your signal.";
+                        break;
+                    default:
+                        errorMessage = `GPS Error: Unknown error (${error.code}).`;
+                }
+                updateDebugInfo(errorMessage);
             },
             { enableHighAccuracy: true, maximumAge: 0, timeout: 5000 }
         );
     } else {
+        updateDebugInfo('GPS: Geolocation not supported by this browser. Simulating speed.');
         console.error('Geolocation is not supported by this browser.');
         // Fallback to simulated speed if GPS is not supported
         setInterval(() => {
             currentSpeedKmH = 20; // Simulated speed if no GPS
             localStorage.setItem('currentSpeedKmH', currentSpeedKmH);
             updateMileageDisplay(); // Update mileage display from simulation
+            updateDebugInfo(`GPS: Simulated speed ${currentSpeedKmH.toFixed(2)} km/h`);
         }, 1000);
     }
 });

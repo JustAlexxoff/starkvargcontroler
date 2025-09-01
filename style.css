@@ -424,114 +424,114 @@ body.light-mode .theme-toggle-button img {
     }
 
     .main-screen {
-        padding: 3px 0; /* Reduced padding */
+        padding: 1px 0; /* Minimized padding */
         min-height: 100vh;
         justify-content: flex-start;
-        flex-grow: 1; /* Ensure it takes available space */
+        flex-grow: 1;
     }
 
-    /* Scale down the speed arc container aggressively */
+    /* Speed arc container - drastic reduction */
     .speed-arc-container {
-        width: 300px; /* Further reduced width */
-        height: 150px; /* Further reduced height */
-        margin-top: -20px; /* Adjusted margin to bring arc into view and higher */
+        width: 200px; /* Drastically reduced width */
+        height: 100px; /* Drastically reduced height */
+        margin-top: -5px; /* Minimal top margin */
         margin-bottom: 0px;
     }
 
-    /* Scale down the SVG arc itself even more */
+    /* SVG arc itself - extremely aggressive scaling */
     .speed-arc {
-        transform: scale(0.6); /* Slightly increased scale to ensure visibility, adjust if too big */
+        transform: scale(0.4); /* Extremely aggressive scale down */
         transform-origin: center bottom;
     }
 
-    /* Scale down mileage display aggressively */
+    /* Mileage display */
     .mileage-display {
-        margin-top: 5px; /* Further adjusted position */
-        min-width: 70px;
-    }
-
-    .header-info .mileage-display #mileage-value-header {
-        font-size: 2.5em; /* Even smaller font size */
-    }
-
-    .header-info .mileage-display .unit {
-        font-size: 0.5em; /* Even smaller font size */
-        margin-top: -2px;
-    }
-
-    /* Scale down riding time aggressively */
-    .riding-time-bottom {
-        font-size: 0.7em; /* Very small font size */
-        margin-top: 0px; /* Adjusted position */
-        padding: 2px 5px; /* Smaller padding */
+        margin-top: 3px; /* Minimal margin */
         min-width: 50px;
     }
 
-    /* Adjust header info elements aggressively */
+    .header-info .mileage-display #mileage-value-header {
+        font-size: 1.8em; /* Very small font size */
+    }
+
+    .header-info .mileage-display .unit {
+        font-size: 0.35em; /* Extremely small font size */
+        margin-top: 0px;
+    }
+
+    /* Riding time */
+    .riding-time-bottom {
+        font-size: 0.5em; /* Very small font size */
+        margin-top: 0px;
+        padding: 1px 2px;
+        min-width: 30px;
+    }
+
+    /* Header info elements */
     .header-info {
-        margin-bottom: 5px; /* Less margin below header */
-        padding: 0 2px; /* Less padding */
+        margin-bottom: 2px; /* Minimal margin */
+        padding: 0 1px;
     }
 
     .header-info .power-mode,
     .header-info .battery-display {
-        min-width: 50px; /* Smaller min-width */
-        padding: 2px 4px; /* Smaller padding */
+        min-width: 35px; /* Minimal width */
+        padding: 1px 2px;
     }
 
     .power-mode .label,
     .mileage-display .label,
     .battery-display .label,
     .riding-time-bottom .label {
-        font-size: 0.4em; /* Even smaller label font size */
+        font-size: 0.3em; /* Extremely small label font size */
     }
 
     .power-mode .value-wrapper {
-        font-size: 0.7em; /* Smaller font */
+        font-size: 0.5em;
     }
 
     .power-mode .icon {
-        width: 15px;
-        height: 15px;
+        width: 10px;
+        height: 10px;
     }
 
     .battery-display #battery-percentage-header {
-        font-size: 0.7em;
+        font-size: 0.5em;
     }
 
     .battery-icon {
-        font-size: 0.8em;
+        font-size: 0.6em;
     }
 
-    /* Adjust absolute positioned icons aggressively */
+    /* Absolute positioned icons */
     #baterry-icon-container,
     #engine-icon-container {
-        width: 25px; /* Smaller icon containers */
-        height: 25px;
+        width: 18px;
+        height: 18px;
     }
 
     #baterry-icon-container {
-        left: 1%; /* Adjust position */
+        left: 0.2%;
     }
 
     #engine-icon-container {
-        right: 1%; /* Adjust position */
-    }
-
-    .theme-toggle-button {
-        width: 18px; /* Smaller button */
-        height: 18px;
         right: 0.2%;
     }
 
+    .theme-toggle-button {
+        width: 12px;
+        height: 12px;
+        right: 0%;
+    }
+
     .theme-toggle-button img {
-        width: 50%; /* Adjust image size within button */
-        height: 50%;
+        width: 40%;
+        height: 40%;
     }
 
     .footer {
-        font-size: 0.5em; /* Smaller footer text */
-        padding-top: 2px;
-        margin-top: auto; /* Push to the very bottom */
+        font-size: 0.3em;
+        padding-top: 1px;
+        margin-top: auto;
     }
 }
