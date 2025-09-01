@@ -247,16 +247,20 @@ document.addEventListener('DOMContentLoaded', () => {
         navigator.geolocation.watchPosition(
             (position) => {
                 const speed = position.coords.speed; // Speed in meters per second
+                const accuracy = position.coords.accuracy;
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
                 if (speed !== null && speed >= 0) {
                     currentSpeedKmH = speed * 3.6; // Convert m/s to km/h
                     localStorage.setItem('currentSpeedKmH', currentSpeedKmH);
                     updateMileageDisplay(); // Update mileage display from GPS
-                    updateDebugInfo(`GPS: Speed ${currentSpeedKmH.toFixed(2)} km/h`);
+                    updateDebugInfo(`GPS: Speed ${currentSpeedKmH.toFixed(2)} km/h | Acc: ${accuracy.toFixed(0)}m | Lat: ${latitude.toFixed(4)} | Lon: ${longitude.toFixed(4)}`);
                 } else {
                     currentSpeedKmH = 0; // If speed is null or negative, assume 0
                     localStorage.setItem('currentSpeedKmH', currentSpeedKmH);
                     updateMileageDisplay();
-                    updateDebugInfo('GPS: No speed detected (stationary or invalid data)');
+                    updateDebugInfo(`GPS: No speed detected (stationary or invalid data) | Acc: ${accuracy.toFixed(0)}m | Lat: ${latitude.toFixed(4)} | Lon: ${longitude.toFixed(4)}`);
                 }
             },
             (error) => {
